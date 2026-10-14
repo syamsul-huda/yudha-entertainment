@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YUDHA ENTERTAINMENT — Sewa Tenda, Organ Tunggal & Perlengkapan Acara</title>
+  <meta name="description" content="Sewa tenda nikahan, organ tunggal, gerabah, lampu dan listrik. Cek tanggal kosong dan pesan langsung lewat WhatsApp tanpa daftar.">
+  <meta name="theme-color" content="#1C0F2B">
+  <!-- Pratinjau saat link dibagikan di WhatsApp -->
+  <meta property="og:title" content="Yudha Entertainment — Sewa Perlengkapan Acara">
+  <meta property="og:description" content="Pilih paket, cek tanggal kosong, pesan lewat WhatsApp.">
+  <meta property="og:type" content="website">
+  <!-- <meta property="og:image" content="https://domain-anda/assets/img/og.jpg"> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="brand" aria-label="Beranda">
+        <svg class="brand-logo" viewBox="0 0 42 42" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M21 5 L37 34 H5 Z"/><path d="M21 5 V2"/><path d="M21 14 L14 34 M21 14 L28 34"/><path d="M3 34 H39"/></svg>
+        <span class="brand-text">
+          <span class="brand-name" data-config="namaUsaha">Yudha Entertainment</span>
+          <span class="brand-tagline" data-config="tagline"></span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Menu utama">
+        <a href="#paket">Paket</a>
+        <a href="#produk">Produk Satuan</a>
+        <a href="#galeri">Galeri</a>
+        <a href="#pesan">Cek Tanggal</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+      <a class="btn btn-outline btn-header" id="headerCall" href="#">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-phone"/></svg>
+        <span>Hubungi</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="eyebrow">Untuk nikahan, khitanan &amp; acara keluarga</span>
+        <h1>Wujudkan acara spesial Anda, <span class="accent">semua dalam satu pesanan.</span></h1>
+        <p class="lead">Pilih paket atau barang satuan, cek tanggal yang masih kosong, lalu kirim pesanan lewat WhatsApp. Tanpa daftar, tanpa login.</p>
+        <div class="hero-cta">
+          <a href="#paket" class="btn btn-primary btn-lg">Lihat Paket</a>
+          <a href="#pesan" class="btn btn-ghost btn-lg" id="heroCheckDate">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-calendar"/></svg>
+            Cek Tanggal Kosong
+          </a>
+        </div>
+        <ul class="trust">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-truck"/></svg>Antar, pasang &amp; bongkar</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-shield"/></svg>Peralatan terawat</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-tag"/></svg>Harga jelas di depan</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-pin"/></svg><span data-config="areaLayanan"></span></li>
+        </ul>
+      </div>
+      <div class="hero-media">
+        <div class="photo-placeholder photo-dark">
+          <!-- Ganti div ini dengan: <img src="assets/img/hero.jpg" alt="Tenda pelaminan malam hari"> -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-camera"/></svg>
+          <strong>[Foto acara asli Anda]</strong>
+          <span>Tenda &amp; dekorasi pelaminan, malam hari</span>
+        </div>
+        <ol class="steps-card" aria-label="Cara pesan">
+          <li><span>1</span>Pilih paket / barang</li>
+          <li><span>2</span>Pilih tanggal &amp; lokasi</li>
+          <li><span class="green">3</span>Kirim lewat WhatsApp</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="container layout">
+    <div class="catalog">
+      <div class="chips" id="categoryChips" role="group" aria-label="Filter kategori"></div>
+
+      <section id="paket" class="section">
+        <div class="section-head">
+          <h2>Paket Populer</h2>
+          <p>Sudah termasuk antar, pasang dan bongkar.</p>
+        </div>
+        <div class="grid grid-packages" id="packageGrid"></div>
+        <p class="empty-note" id="packageEmpty" hidden>Tidak ada paket di kategori ini.</p>
+      </section>
+
+      <section id="produk" class="section">
+        <div class="section-head">
+          <h2>Produk Satuan</h2>
+          <p>Butuh tambahan? Sewa per barang, bisa digabung dengan paket.</p>
+        </div>
+        <div class="grid grid-items" id="itemGrid"></div>
+        <p class="empty-note" id="itemEmpty" hidden>Tidak ada produk di kategori ini.</p>
+      </section>
+
+      <section id="galeri" class="section">
+        <div class="section-head">
+          <h2>Acara yang Pernah Kami Tangani</h2>
+          <p>Foto asli dari acara pelanggan, bukan foto stok.</p>
+        </div>
+        <div class="grid grid-gallery">
+          <!-- Ganti tiap div dengan <img src="assets/img/galeri-1.jpg" alt="..."> -->
+          <div class="photo-placeholder">[Foto: pelaminan, nama &amp; kota acara]</div>
+          <div class="photo-placeholder">[Foto: tenda terpasang siang hari]</div>
+          <div class="photo-placeholder">[Foto: panggung organ tunggal]</div>
+          <div class="photo-placeholder">[Foto: area makan &amp; prasmanan]</div>
+        </div>
+      </section>
+    </div>
+
+    <!-- PANEL PESANAN (desktop: samping, mobile: bottom sheet) -->
+    <aside id="pesan" class="order-panel" aria-label="Pesanan Anda">
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <div class="order-head">
+        <h2>Pesanan Anda</h2>
+        <span class="pill" id="lineCount">0 item</span>
+        <button type="button" class="icon-btn sheet-close" id="sheetClose" aria-label="Tutup pesanan">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-x"/></svg>
+        </button>
+      </div>
+
+      <div class="order-body">
+        <div class="order-step">
+          <span class="step-label">1 · Barang &amp; paket</span>
+          <div id="cartList"></div>
+          <p class="field-error" id="errCart" hidden>Tambahkan minimal 1 paket atau barang.</p>
+        </div>
+
+        <div class="order-step">
+          <span class="step-label">2 · Tanggal, waktu &amp; lokasi</span>
+          <div class="calendar">
+            <div class="cal-head">
+              <button type="button" class="icon-btn" id="calPrev" aria-label="Bulan sebelumnya">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-left"/></svg>
+              </button>
+              <span id="calTitle"></span>
+              <button type="button" class="icon-btn" id="calNext" aria-label="Bulan berikutnya">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-right"/></svg>
+              </button>
+            </div>
+            <div class="cal-grid cal-weekdays" aria-hidden="true">
+              <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
+            </div>
+            <div class="cal-grid" id="calDays"></div>
+            <div class="cal-legend">
+              <span><i class="lg lg-ok"></i>Tersedia</span>
+              <span><i class="lg lg-near"></i>Hampir penuh</span>
+              <span><i class="lg lg-full"></i><s>Penuh</s></span>
+            </div>
+            <p class="cal-sync" id="calSync" hidden></p>
+          </div>
+          <div class="selected-date" id="selectedDate">Belum memilih tanggal</div>
+          <p class="field-error" id="errDate" hidden>Pilih tanggal acara.</p>
+
+          <div class="slots" id="slotGroup" role="group" aria-label="Waktu pemakaian"></div>
+
+          <label class="field">Lokasi acara
+            <input type="text" id="inputLoc" autocomplete="street-address" placeholder="Contoh: Jl. Melati No. 12, Karawang">
+          </label>
+          <p class="field-error" id="errLoc" hidden>Isi lokasi acara agar ongkir bisa dihitung.</p>
+          <label class="field">Nama pemesan (opsional)
+            <input type="text" id="inputName" autocomplete="name" placeholder="Contoh: Ibu Siti">
+          </label>
+          <label class="field">Catatan (opsional)
+            <textarea id="inputNote" rows="2" placeholder="Contoh: butuh tambahan 50 kursi, akses jalan sempit"></textarea>
+          </label>
+        </div>
+
+        <div class="order-step">
+          <span class="step-label">3 · Ringkasan &amp; kirim</span>
+          <div class="sum-row"><span>Subtotal</span><strong id="sumSubtotal">Rp 0</strong></div>
+          <div class="sum-row"><span>Estimasi ongkir (<span data-config="ongkirKeterangan"></span>)</span><strong id="sumOngkir">Rp 0</strong></div>
+          <div class="sum-total"><span>Estimasi total</span><strong id="sumTotal">Rp 0</strong></div>
+
+          <button type="button" class="link-btn" id="toggleMsg" aria-expanded="false" aria-controls="msgPreview">Lihat isi pesan WhatsApp</button>
+          <pre class="msg-preview" id="msgPreview" hidden></pre>
+
+          <button type="button" class="btn btn-wa btn-block btn-lg" id="sendWA">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-chat"/></svg>
+            Kirim Pesanan via WhatsApp
+          </button>
+          <a class="btn btn-outline-muted btn-block" id="panelCall" href="#">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-phone"/></svg>
+            Atau telepon kami
+          </a>
+          <p class="fine">Tanpa daftar &amp; tanpa bayar di website. Harga final dan ketersediaan dikonfirmasi admin lewat WhatsApp.</p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="kontak" class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <span class="footer-brand" data-config="namaUsaha"></span>
+        <p>Sewa tenda, organ tunggal, gerabah, lampu &amp; listrik untuk acara Anda.</p>
+      </div>
+      <div>
+        <h3>Kontak</h3>
+        <p><a id="footerWA" href="#">WhatsApp</a><br><a id="footerCall" href="#">Telepon</a></p>
+      </div>
+      <div>
+        <h3>Gudang &amp; jam buka</h3>
+        <p><span data-config="alamatGudang"></span><br><span data-config="jamBuka"></span></p>
+      </div>
+      <div>
+        <h3>Area layanan</h3>
+        <p><span data-config="areaLayanan"></span><br>Di luar area: ongkir disesuaikan</p>
+      </div>
+    </div>
+    <p class="container copyright">© <span id="year"></span> <span data-config="namaUsaha"></span></p>
+  </footer>
+
+  <!-- BAR BAWAH (mobile) -->
+  <div class="mobile-bar" id="mobileBar">
+    <div class="mobile-bar-info">
+      <span id="barMeta">Belum ada barang</span>
+      <strong id="barTotal">Rp 0</strong>
+    </div>
+    <button type="button" class="btn btn-primary" id="openSheet">Lanjut Pesan</button>
+  </div>
+  <div class="backdrop" id="backdrop" hidden></div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- IKON (SVG sprite) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="ic-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+      <symbol id="ic-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+      <symbol id="ic-truck" viewBox="0 0 24 24"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+      <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+      <symbol id="ic-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></symbol>
+      <symbol id="ic-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="ic-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+      <symbol id="ic-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+      <symbol id="ic-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></symbol>
+      <symbol id="ic-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5z"/></symbol>
+      <symbol id="ic-left" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+      <symbol id="ic-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+      <symbol id="ic-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    </defs>
+  </svg>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

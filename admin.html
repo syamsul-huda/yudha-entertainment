@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — Yudha Entertainment</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1C0F2B">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+  <!-- ===== Login ===== -->
+  <main class="login-view" id="loginView" hidden>
+    <form class="login-card" id="loginForm" novalidate>
+      <div class="login-brand">
+        <span class="brand-name" data-config="namaUsaha">Yudha Entertainment</span>
+        <span class="login-sub">Halaman admin</span>
+      </div>
+      <label class="field">Username
+        <input id="loginUser" autocomplete="username" autocapitalize="none" required>
+      </label>
+      <label class="field">Password
+        <input id="loginPass" type="password" autocomplete="current-password" required>
+      </label>
+      <p class="field-error" id="loginErr" hidden></p>
+      <button class="btn btn-primary btn-lg btn-block" type="submit" id="loginBtn">Masuk</button>
+      <a class="login-back" href="./">← Kembali ke website</a>
+    </form>
+  </main>
+
+  <!-- ===== Dashboard ===== -->
+  <div id="appView" hidden>
+    <header class="adm-header">
+      <div class="container adm-header-inner">
+        <div class="adm-brand">
+          <span class="brand-name" data-config="namaUsaha">Yudha Entertainment</span>
+          <span class="adm-tag">Admin</span>
+        </div>
+        <nav class="adm-tabs" role="tablist">
+          <button type="button" role="tab" class="adm-tab" data-tab="kalender" aria-selected="true">Kalender</button>
+          <button type="button" role="tab" class="adm-tab" data-tab="daftar" aria-selected="false">Daftar pesanan</button>
+          <button type="button" role="tab" class="adm-tab" data-tab="katalog" aria-selected="false">Katalog</button>
+        </nav>
+        <div class="adm-user">
+          <span id="adminName"></span>
+          <button type="button" class="btn btn-ghost btn-sm" id="pwBtn">Ganti password</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="logoutBtn">Keluar</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container adm-main">
+      <!-- Tab kalender -->
+      <section id="tabKalender" class="adm-cal-layout">
+        <div class="adm-card">
+          <div class="adm-cal-head">
+            <button type="button" class="icon-btn" id="admPrev" aria-label="Bulan sebelumnya">‹</button>
+            <h1 id="admMonth"></h1>
+            <button type="button" class="icon-btn" id="admNext" aria-label="Bulan berikutnya">›</button>
+            <button type="button" class="btn btn-outline-muted btn-sm" id="admToday">Hari ini</button>
+          </div>
+          <div class="adm-cal-grid adm-weekdays" aria-hidden="true">
+            <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
+          </div>
+          <div class="adm-cal-grid" id="admDays"></div>
+          <div class="cal-legend">
+            <span><i class="lg lg-ok"></i>Tersedia</span>
+            <span><i class="lg lg-near"></i>Hampir penuh</span>
+            <span><i class="lg adm-lg-full"></i>Penuh</span>
+            <span><i class="adm-dot"></i>Jumlah pesanan</span>
+          </div>
+        </div>
+
+        <aside class="adm-card adm-day" id="dayPanel" aria-live="polite"></aside>
+      </section>
+
+      <!-- Tab daftar -->
+      <section id="tabDaftar" hidden>
+        <div class="adm-card adm-filters">
+          <label class="field">Cari
+            <input id="fCari" type="search" placeholder="Nama, no. HP, alamat, jenis acara">
+          </label>
+          <label class="field">Status
+            <select id="fStatus">
+              <option value="">Semua</option>
+              <option value="menunggu">Menunggu</option>
+              <option value="dikonfirmasi">Dikonfirmasi</option>
+              <option value="selesai">Selesai</option>
+              <option value="batal">Batal</option>
+            </select>
+          </label>
+          <label class="adm-check"><input type="checkbox" id="fMendatang" checked> Hanya acara mendatang</label>
+          <button type="button" class="btn btn-primary" id="newOrderBtn">+ Pesanan baru</button>
+        </div>
+        <div id="listOut"></div>
+      </section>
+
+      <!-- Tab katalog -->
+      <section id="tabKatalog" hidden>
+        <div class="adm-card adm-kat">
+          <div class="adm-sec-head">
+            <h2>Kategori</h2>
+            <p>Dipakai untuk tombol filter di website. Kategori yang masih berisi paket/produk tidak bisa dihapus.</p>
+          </div>
+          <div id="katList" class="adm-kat-list"></div>
+          <form id="katForm" class="adm-inline-form">
+            <input id="katBaru" placeholder="Nama kategori baru, mis. Dekorasi Pelaminan" aria-label="Nama kategori baru" maxlength="60">
+            <button type="submit" class="btn btn-outline btn-sm">+ Tambah kategori</button>
+          </form>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-sec-head adm-sec-row">
+            <div>
+              <h2>Paket</h2>
+              <p>Tampil besar di website, lengkap dengan isi paket.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" data-new-item="paket">+ Paket baru</button>
+          </div>
+          <div id="paketList" class="adm-cat-items"></div>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-sec-head adm-sec-row">
+            <div>
+              <h2>Produk satuan</h2>
+              <p>Barang yang bisa disewa terpisah atau ditambahkan ke paket.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" data-new-item="produk">+ Produk baru</button>
+          </div>
+          <div id="produkList" class="adm-cat-items"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===== Form pesanan ===== -->
+  <dialog class="adm-dialog" id="orderDlg">
+    <form id="orderForm" method="dialog" novalidate>
+      <div class="dlg-head">
+        <h2 id="orderTitle">Pesanan baru</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Tutup">✕</button>
+      </div>
+      <div class="dlg-body">
+        <fieldset>
+          <legend>Acara</legend>
+          <div class="adm-row">
+            <label class="field">Tanggal acara *<input type="date" name="tanggal" required></label>
+            <label class="field">Sesi<select name="sesi" id="oSesi"></select></label>
+          </div>
+          <label class="field">Jenis acara
+            <input name="jenis_acara" list="jenisList" placeholder="Pernikahan, khitanan, syukuran…">
+          </label>
+          <datalist id="jenisList">
+            <option value="Pernikahan"><option value="Khitanan"><option value="Syukuran"><option value="Ulang tahun">
+            <option value="Pengajian"><option value="Acara kantor"><option value="Acara desa">
+          </datalist>
+          <div class="adm-row">
+            <label class="field">Jam pasang<input name="jam_pasang" placeholder="mis. Jumat, 14.00"></label>
+            <label class="field">Jam bongkar<input name="jam_bongkar" placeholder="mis. Minggu, 08.00"></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Pelanggan</legend>
+          <div class="adm-row">
+            <label class="field">Nama *<input name="nama_pelanggan" required autocomplete="off"></label>
+            <label class="field">No. HP / WA<input name="no_hp" type="tel" inputmode="tel" autocomplete="off"></label>
+          </div>
+          <label class="field">Alamat / lokasi acara<textarea name="alamat" rows="2"></textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Barang & paket</legend>
+          <div class="adm-items-head" aria-hidden="true"><span>Nama</span><span>Jumlah</span><span>Harga satuan</span><span></span></div>
+          <div id="itemRows"></div>
+          <div class="adm-item-actions">
+            <select id="katalogPick" aria-label="Tambah dari katalog"></select>
+            <button type="button" class="btn btn-outline-muted btn-sm" id="addItem">+ Barang lain</button>
+          </div>
+          <datalist id="katalogList"></datalist>
+        </fieldset>
+
+        <fieldset>
+          <legend>Pembayaran & status</legend>
+          <div class="adm-row">
+            <label class="field">Ongkir (Rp)<input name="ongkir" type="number" min="0" step="1000" inputmode="numeric"></label>
+            <label class="field">DP dibayar (Rp)<input name="dp" type="number" min="0" step="1000" inputmode="numeric"></label>
+          </div>
+          <dl class="adm-sum" id="orderSum"></dl>
+          <label class="field">Status pesanan
+            <select name="status">
+              <option value="menunggu">Menunggu konfirmasi</option>
+              <option value="dikonfirmasi">Dikonfirmasi (tanggal terkunci)</option>
+              <option value="selesai">Selesai</option>
+              <option value="batal">Batal</option>
+            </select>
+          </label>
+          <label class="field">Catatan untuk kru<textarea name="catatan" rows="3" placeholder="Warna dekorasi, akses jalan, kontak di lokasi…"></textarea></label>
+        </fieldset>
+        <p class="field-error" id="orderErr" hidden></p>
+      </div>
+      <div class="dlg-foot">
+        <button type="button" class="btn adm-btn-danger" id="deleteOrder" hidden>Hapus</button>
+        <span class="dlg-spacer"></span>
+        <button type="button" class="btn btn-outline-muted" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary" id="saveOrder">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===== Form paket / produk ===== -->
+  <dialog class="adm-dialog" id="itemDlg">
+    <form id="itemForm" method="dialog" novalidate>
+      <div class="dlg-head">
+        <h2 id="itemTitle">Paket baru</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Tutup">✕</button>
+      </div>
+      <div class="dlg-body">
+        <label class="field">Nama *<input name="nama" required maxlength="120"></label>
+        <div class="adm-row">
+          <label class="field">Kategori<select name="kategori" id="itemKat"></select></label>
+          <label class="field">Jenis
+            <select name="tipe">
+              <option value="paket">Paket</option>
+              <option value="produk">Produk satuan</option>
+            </select>
+          </label>
+        </div>
+        <div class="adm-row">
+          <label class="field">Harga (Rp) *<input name="harga" type="number" min="0" step="1000" inputmode="numeric" required></label>
+          <label class="field">Per satuan<input name="satuan" list="satuanList" placeholder="paket, hari, buah, set…" maxlength="30"></label>
+        </div>
+        <datalist id="satuanList"><option value="paket"><option value="acara"><option value="hari"><option value="buah"><option value="set"></datalist>
+        <div class="adm-row">
+          <label class="field" data-for="produk">Ditambah per (kelipatan)<input name="kelipatan" type="number" min="1" inputmode="numeric" placeholder="1"></label>
+          <label class="field" data-for="paket">Label sorotan (opsional)<input name="badge" placeholder="mis. Paling diminati" maxlength="40"></label>
+          <label class="field">Urutan tampil<input name="urutan" type="number" min="0" inputmode="numeric" placeholder="1 = paling depan"></label>
+        </div>
+        <label class="field" data-for="paket">Isi paket (satu baris satu poin)
+          <textarea name="fitur" rows="5" placeholder="Tenda 6x12 m + dekorasi standar&#10;Kursi & meja 100 set&#10;Organ tunggal 4 jam"></textarea>
+        </label>
+        <div class="adm-row">
+          <label class="field">Foto (opsional)<input name="foto" placeholder="assets/img/paket-nikahan.jpg" maxlength="300"></label>
+          <label class="field">Teks pengganti foto<input name="keterangan_foto" placeholder="mis. tenda & pelaminan" maxlength="100"></label>
+        </div>
+        <label class="adm-check"><input type="checkbox" name="aktif"> Tampilkan di website</label>
+        <p class="field-error" id="itemErr" hidden></p>
+      </div>
+      <div class="dlg-foot">
+        <button type="button" class="btn adm-btn-danger" id="deleteItem" hidden>Hapus</button>
+        <span class="dlg-spacer"></span>
+        <button type="button" class="btn btn-outline-muted" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary" id="saveItem">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- ===== Ganti password ===== -->
+  <dialog class="adm-dialog adm-dialog-sm" id="pwDlg">
+    <form id="pwForm" method="dialog" novalidate>
+      <div class="dlg-head">
+        <h2>Ganti password</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Tutup">✕</button>
+      </div>
+      <div class="dlg-body">
+        <label class="field">Password lama<input type="password" name="lama" autocomplete="current-password" required></label>
+        <label class="field">Password baru (min. 8 karakter)<input type="password" name="baru" autocomplete="new-password" minlength="8" required></label>
+        <p class="field-error" id="pwErr" hidden></p>
+      </div>
+      <div class="dlg-foot">
+        <span class="dlg-spacer"></span>
+        <button type="button" class="btn btn-outline-muted" data-close>Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

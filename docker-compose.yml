@@ -1,0 +1,36 @@
+# Hosting Yudha Entertainment di NAS (website + halaman admin + API dalam satu container).
+# Jalankan dari folder ini:  docker compose up -d --build
+services:
+  app:
+    build: .
+    image: yudha-entertainment:latest
+    container_name: yudha-app
+    env_file: server/.env
+    environment:
+      TZ: Asia/Jakarta          # agar "hari ini" & jadwal memakai WIB
+      NODE_ENV: production
+    ports:
+      - "3100:3100"             # buka http://<IP-NAS>:3100
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3100/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Opsional: buka website ke internet lewat Cloudflare Tunnel (gratis, HTTPS, tanpa buka port router).
+  # 1. Isi TUNNEL_TOKEN=... di server/.env   2. Hapus tanda # di bawah   3. docker compose up -d
+  # Di dashboard Cloudflare, arahkan public hostname ke  http://app:3100
+  # tunnel:
+  #   image: cloudflare/cloudflared:2024.12.2
+  #   container_name: yudha-tunnel
+  #   command: tunnel --no-autoupdate run
+  #   env_file: server/.env
+  #   depends_on:
+  #     - app
+  #   restart: unless-stopped

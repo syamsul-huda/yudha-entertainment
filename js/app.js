@@ -6,8 +6,11 @@
   "use strict";
 
   const C = window.CONFIG;
-  const ALL = window.PAKET.concat(window.PRODUK);
-  const byId = Object.fromEntries(ALL.map((x) => [x.id, x]));
+  let byId = {};
+  function setKatalog() {
+    byId = Object.fromEntries(window.PAKET.concat(window.PRODUK).map((x) => [x.id, x]));
+  }
+  setKatalog();
   const STORAGE_KEY = "yudha_pesanan_v1";
   const BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
   const HARI = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
@@ -37,7 +40,8 @@
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
       if (!saved) return;
-      Object.keys(saved.cart || {}).forEach((id) => { if (byId[id]) state.cart[id] = saved.cart[id]; });
+      // id dicek lagi setelah katalog dari server dimuat
+      Object.keys(saved.cart || {}).forEach((id) => { if (saved.cart[id] > 0) state.cart[id] = saved.cart[id]; });
       ["slot", "loc", "name", "note"].forEach((k) => { if (typeof saved[k] === "string") state[k] = saved[k]; });
       if (saved.date && dateStatus(saved.date) !== "full" && !isPast(saved.date)) state.date = saved.date;
     } catch (e) { /* abaikan */ }
@@ -67,7 +71,7 @@
   }
   const STATUS_LABEL = { ok: "Tersedia", near: "Hampir penuh", full: "Penuh" };
 
-  /* ---------- Jadwal dari Google Sheets ---------- */
+  /* ---------- Jadwal (CSV dari server NAS) ---------- */
   // CSV sederhana: dukung kolom berisi koma/kutip ("...").
   function parseCSV(text) {
     const rows = [];
@@ -104,11 +108,11 @@
     return null;
   }
   async function loadJadwal() {
-    if (!C.jadwalSheetCSV) return;
+    if (!C.jadwalURL) return;
     const info = $("#calSync");
     try {
-      const sep = C.jadwalSheetCSV.indexOf("?") >= 0 ? "&" : "?";
-      const res = await fetch(C.jadwalSheetCSV + sep + "t=" + Date.now(), { cache: "no-store" });
+      const sep = C.jadwalURL.indexOf("?") >= 0 ? "&" : "?";
+      const res = await fetch(C.jadwalURL + sep + "t=" + Date.now(), { cache: "no-store" });
       if (!res.ok) throw new Error("HTTP " + res.status);
       const full = [], near = [];
       parseCSV(await res.text()).forEach((r) => {
@@ -151,7 +155,7 @@
     renderCart();
   }
   function cartLines() {
-    return Object.keys(state.cart).map((id) => {
+    return Object.keys(state.cart).filter((id) => byId[id]).map((id) => {
       const x = byId[id];
       const q = state.cart[id];
       return { id, x, q, total: x.harga * q };
@@ -162,6 +166,31 @@
     const subtotal = lines.reduce((s, l) => s + l.total, 0);
     const ongkir = lines.length ? C.ongkirEstimasi : 0;
     return { lines, subtotal, ongkir, total: subtotal + ongkir };
+  }
+
+  /* ---------- Katalog dari server (diatur admin) ---------- */
+  // Kalau server tidak bisa dihubungi, tetap memakai PAKET/PRODUK di data.js.
+  async function loadKatalog() {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 6000);
+    try {
+      const res = await fetch(C.katalogURL, { cache: "no-store", signal: ctrl.signal });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const k = await res.json();
+      window.KATEGORI = [{ id: "all", label: "Semua" }].concat(k.kategori);
+      window.PAKET = k.paket;
+      window.PRODUK = k.produk;
+      setKatalog();
+      Object.keys(state.cart).forEach((id) => { if (!byId[id]) delete state.cart[id]; });
+      save();
+    } catch (e) { /* pakai data.js */ }
+    clearTimeout(timer);
+  }
+  function renderKatalog() {
+    if (!window.KATEGORI.some((k) => k.id === state.cat)) state.cat = "all";
+    renderChips();
+    renderCatalog();
+    renderCart();
   }
 
   /* ---------- Render: katalog ---------- */
@@ -430,9 +459,10 @@
     });
     const tel = "tel:" + C.nomorTelepon;
     ["#headerCall", "#panelCall", "#footerCall"].forEach((s) => { $(s).href = tel; });
-    $("#footerCall").textContent = "Telepon: " + C.nomorTelepon;
+    const an = C.namaKontak ? " (" + C.namaKontak + ")" : "";
+    $("#footerCall").textContent = "Telepon: " + C.nomorTelepon + an;
     $("#footerWA").href = "https://wa.me/" + C.nomorWA;
-    $("#footerWA").textContent = "WhatsApp: +" + C.nomorWA;
+    $("#footerWA").textContent = "WhatsApp: +" + C.nomorWA + an;
     $("#year").textContent = today.getFullYear();
   }
 
@@ -443,11 +473,14 @@
     state.viewY = y; state.viewM = m - 1;
   }
   applyConfig();
-  renderChips();
-  renderCatalog();
   renderSlots();
   renderCalendar();
-  renderCart();
+  if (C.katalogURL) {
+    $("#packageGrid").innerHTML = `<p class="empty-note">Memuat katalog…</p>`;
+    loadKatalog().then(renderKatalog);
+  } else {
+    renderKatalog();
+  }
 
   // ambil jadwal saat dibuka, tiap 2 menit, dan saat pelanggan kembali ke tab ini
   loadJadwal();

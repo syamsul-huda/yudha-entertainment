@@ -1,7 +1,8 @@
 /* =========================================================
    DATA & PENGATURAN USAHA
-   Edit file ini saja untuk mengganti nomor WA, harga,
-   produk, dan tanggal yang sudah penuh.
+   Nomor WA, alamat, ongkir: edit di file ini.
+   Kategori, paket, produk & harga: diatur admin di /admin → Katalog
+   (daftar di bawah hanya isi awal database & cadangan).
    ========================================================= */
 
 window.CONFIG = {
@@ -10,8 +11,9 @@ window.CONFIG = {
 
   // Nomor WhatsApp tujuan pesanan. Format internasional TANPA "+" dan TANPA "0" di depan.
   // Contoh: 0812-3456-7890  ->  "6281234567890"
-  nomorWA: "6281234567890",
-  nomorTelepon: "081234567890",
+  nomorWA: "6282170847132",
+  nomorTelepon: "082170847132",
+  namaKontak: "Bejo",
 
   // Estimasi ongkir (ditampilkan sebagai perkiraan, final dikonfirmasi admin)
   ongkirEstimasi: 150000,
@@ -21,12 +23,16 @@ window.CONFIG = {
   alamatGudang: "[Alamat gudang]",
   jamBuka: "[Hari & jam operasional]",
 
-  // Jadwal dari Google Sheets (link CSV hasil "File → Bagikan → Publikasikan ke web → CSV").
-  // Kolom: tanggal | status (penuh / hampir) | keterangan. Lihat README bagian "Jadwal dari Google Sheets".
-  // Kalau link ini bisa dibaca, isinya MENGGANTIKAN dua daftar tanggal di bawah.
-  // Kosongkan ("") untuk memakai daftar di bawah saja.
-  // Sementara diarahkan ke file contoh lokal agar bisa dites dengan Live Server.
-  jadwalSheetCSV: "jadwal-contoh.csv",
+  // Sumber status tanggal (CSV: tanggal,status). Diisi otomatis dari pesanan di halaman admin.
+  // - Website dibuka dari server NAS          -> biarkan "api/jadwal.csv"
+  // - Website di GitHub Pages / hosting lain  -> isi alamat lengkap, mis. "https://yudha.domainanda.id/api/jadwal.csv"
+  // Kalau tidak bisa dibaca, dipakai dua daftar cadangan di bawah.
+  jadwalURL: "api/jadwal.csv",
+
+  // Sumber katalog (kategori, paket, produk, harga) yang diatur admin di halaman /admin → Katalog.
+  // Sama seperti jadwalURL: alamat lengkap kalau website tidak dibuka dari server NAS.
+  // Kalau tidak bisa dibaca, dipakai KATEGORI / PAKET / PRODUK di bawah (juga isi awal database).
+  katalogURL: "api/katalog.json",
 
   // Cadangan kalau spreadsheet tidak bisa dibaca. Format: "YYYY-MM-DD"
   tanggalPenuh: ["2026-11-07", "2026-11-14", "2026-11-22", "2026-12-05", "2026-12-12"],

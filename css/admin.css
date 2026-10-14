@@ -1,0 +1,180 @@
+/* =========================================================
+   Halaman admin — memakai warna & komponen dari style.css
+   ========================================================= */
+.btn-sm { min-height: 38px; padding: 0 12px; font-size: 14px; border-radius: 10px; }
+.adm-btn-danger { border-color: #E9B3C6; color: var(--accent-strong); background: #fff; }
+.adm-btn-danger:hover { background: var(--accent-soft); }
+[hidden] { display: none !important; }
+
+/* ---------- Login ---------- */
+.login-view {
+  min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+  background:
+    radial-gradient(ellipse 60% 70% at 85% 10%, rgba(214, 36, 125, .45), transparent 70%),
+    radial-gradient(ellipse 55% 60% at 5% 100%, rgba(212, 165, 72, .28), transparent 70%),
+    var(--dark);
+}
+.login-card {
+  width: 100%; max-width: 380px; background: var(--surface); border-radius: 22px; border-top: 4px solid var(--gold);
+  padding: 28px 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 24px 60px rgba(10, 4, 20, .5);
+}
+.login-brand { display: flex; flex-direction: column; gap: 2px; margin-bottom: 4px; }
+.login-sub { color: var(--muted); font-size: 14px; }
+.login-back { font-size: 14px; text-align: center; }
+
+/* ---------- Header ---------- */
+.adm-header { background: var(--grad-party) bottom / 100% 3px no-repeat, var(--dark); color: var(--on-dark); padding-bottom: 3px; }
+.adm-header-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; padding-top: 12px; padding-bottom: 12px; }
+.adm-brand { display: flex; align-items: center; gap: 10px; }
+.adm-brand .brand-name { color: var(--gold-light); font-size: 20px; }
+.adm-tag { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--dark); background: var(--grad-gold); padding: 3px 8px; border-radius: 6px; }
+.adm-tabs { display: flex; gap: 4px; order: 3; width: 100%; }
+.adm-tab {
+  flex: 1; min-height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--on-dark-muted); font-weight: 700;
+}
+.adm-tab[aria-selected="true"] { background: rgba(243, 213, 138, .14); color: var(--gold-light); }
+.adm-user { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.adm-user .btn-ghost { background: transparent; }
+.adm-user span { color: var(--on-dark-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+
+.adm-main { padding-top: 20px; padding-bottom: 40px; }
+.adm-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); }
+
+/* ---------- Kalender admin ---------- */
+.adm-cal-layout { display: grid; gap: 20px; align-items: start; }
+.adm-cal-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.adm-cal-head h1 { margin: 0 auto 0 4px; order: -1; font-family: var(--font-display); font-weight: 600; font-size: 20px; white-space: nowrap; }
+.adm-cal-head .icon-btn { font-size: 22px; line-height: 1; }
+.adm-cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.adm-weekdays { text-align: center; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+.adm-day-cell {
+  position: relative; min-height: 52px; border-radius: 10px; border: 1.5px solid transparent; padding: 4px;
+  background: var(--ok-bg); color: var(--ok-fg); font-weight: 700; font-size: 14px;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; text-align: left;
+}
+.adm-day-cell.near { background: var(--near-bg); color: var(--near-fg); }
+.adm-day-cell.full { background: var(--grad-accent); color: #fff; }
+.adm-day-cell.past { opacity: .5; }
+.adm-day-cell.today { border-color: var(--gold); }
+.adm-day-cell[aria-pressed="true"] { outline: 3px solid var(--gold); outline-offset: 1px; }
+.adm-day-cell .n {
+  align-self: flex-end; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 10px; font-size: 11px; font-weight: 800;
+  background: var(--dark); color: var(--gold-light); display: inline-flex; align-items: center; justify-content: center;
+}
+.adm-day-cell .m { position: absolute; top: 4px; right: 6px; font-size: 10px; }
+.adm-dot { width: 14px; height: 14px; border-radius: 7px; background: var(--dark); display: inline-block; }
+.adm-lg-full { background: var(--accent); }
+
+.adm-day h2 { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+.adm-day-status { margin: 12px 0 16px; display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 12px; background: #FBF1E1; font-size: 14px; }
+.adm-day-status select { min-height: 40px; border-radius: 10px; border: 1px solid var(--line-2); padding: 0 10px; background: #fff; }
+.adm-empty { color: var(--muted); font-size: 14px; border: 1.5px dashed var(--line-2); border-radius: 14px; padding: 18px; text-align: center; margin: 0 0 12px; }
+
+/* ---------- Kartu pesanan ---------- */
+.adm-orders { display: flex; flex-direction: column; gap: 12px; margin-bottom: 12px; }
+.adm-order { border: 1px solid var(--line); border-left: 4px solid var(--line-2); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; background: #fff; }
+.adm-order[data-status="dikonfirmasi"] { border-left-color: var(--accent); }
+.adm-order[data-status="menunggu"] { border-left-color: var(--gold); }
+.adm-order[data-status="selesai"] { border-left-color: var(--wa); }
+.adm-order[data-status="batal"] { opacity: .6; }
+.adm-order-top { display: flex; align-items: flex-start; gap: 8px; }
+.adm-order-top h3 { margin: 0; font-size: 16px; flex: 1; }
+.adm-meta { font-size: 13px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.adm-items { font-size: 13px; color: var(--muted); }
+.adm-money { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; }
+.adm-money b { color: var(--ink); }
+.adm-money .sisa { color: var(--accent-strong); font-weight: 700; }
+.adm-money .lunas { color: var(--wa); font-weight: 700; }
+.adm-note { font-size: 13px; background: var(--bg); border-radius: 8px; padding: 6px 8px; white-space: pre-wrap; }
+.adm-order-actions { display: flex; gap: 8px; margin-top: 4px; }
+
+.st-pill { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+.st-menunggu { background: var(--near-bg); color: var(--near-fg); }
+.st-dikonfirmasi { background: var(--accent-soft); color: var(--accent-strong); }
+.st-selesai { background: var(--wa-soft); color: var(--wa); }
+.st-batal { background: var(--full-bg); color: var(--muted); }
+
+/* ---------- Daftar ---------- */
+.adm-filters { display: grid; gap: 12px; align-items: end; margin-bottom: 20px; }
+.adm-filters select { min-height: 46px; border-radius: 12px; border: 1px solid var(--line-2); padding: 0 12px; background: #fff; font-size: 15px; font-weight: 400; }
+.adm-check { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; min-height: 46px; }
+.adm-check input { width: 18px; height: 18px; accent-color: var(--accent); }
+.adm-date-group { margin: 0 0 20px; }
+.adm-date-group > h3 { margin: 0 0 8px; font-size: 14px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.adm-date-group .adm-orders { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+
+/* ---------- Katalog ---------- */
+#tabKatalog { display: flex; flex-direction: column; gap: 20px; }
+.adm-sec-head { margin-bottom: 14px; }
+.adm-sec-head h2 { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+.adm-sec-head p { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
+.adm-sec-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.adm-kat-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.adm-kat-chip { display: inline-flex; align-items: center; gap: 4px; border: 1.5px solid var(--line-2); border-radius: 999px; padding: 4px 4px 4px 14px; font-size: 14px; font-weight: 600; background: #fff; }
+.adm-kat-chip small { color: var(--muted); font-weight: 500; }
+.adm-kat-chip button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--muted); }
+.adm-kat-chip button:hover { background: var(--bg); color: var(--accent-strong); }
+.adm-inline-form { display: flex; flex-wrap: wrap; gap: 8px; }
+.adm-inline-form input { flex: 1; min-width: 200px; min-height: 40px; border-radius: 10px; border: 1px solid var(--line-2); padding: 0 12px; font-size: 14px; }
+.adm-cat-items { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.adm-cat-item { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; background: #fff; text-align: left; font-size: 14px; }
+.adm-cat-item:hover { border-color: var(--gold-light); box-shadow: var(--shadow); }
+.adm-cat-item.off { opacity: .55; }
+.adm-cat-item b { font-size: 15px; }
+.adm-cat-item .harga { color: var(--accent); font-weight: 800; }
+.adm-cat-item .meta { color: var(--muted); font-size: 13px; }
+.adm-cat-item ul { margin: 2px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 13px; }
+.adm-off-tag { align-self: flex-start; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--muted); background: var(--full-bg); padding: 2px 8px; border-radius: 999px; }
+
+/* ---------- Dialog ---------- */
+.adm-dialog {
+  width: min(720px, 100%); max-height: 100dvh; padding: 0; border: 0; border-radius: 20px; color: var(--ink);
+  box-shadow: 0 30px 80px rgba(10, 4, 20, .5);
+}
+.adm-dialog-sm { width: min(420px, 100%); }
+.adm-dialog::backdrop { background: rgba(20, 8, 35, .6); }
+.adm-dialog form { display: flex; flex-direction: column; max-height: calc(100dvh - 32px); }
+.dlg-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.dlg-head h2 { margin: 0; flex: 1; font-family: var(--font-display); font-weight: 600; font-size: 22px; }
+.dlg-body { padding: 16px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+.dlg-foot { display: flex; align-items: center; gap: 8px; padding: 14px 20px; border-top: 1px solid var(--line); background: var(--bg); }
+.dlg-spacer { flex: 1; }
+.adm-dialog fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.adm-dialog legend { font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--gold-strong); margin-bottom: 8px; padding: 0; }
+.adm-row { display: grid; gap: 10px; }
+.field select { min-height: 46px; border-radius: 12px; border: 1px solid var(--line-2); padding: 0 12px; background: #fff; font-size: 15px; font-weight: 400; }
+
+.adm-items-head, .adm-item { display: grid; grid-template-columns: minmax(0, 1fr) 72px 130px 36px; gap: 6px; align-items: center; }
+.adm-items-head { font-size: 12px; color: var(--muted); font-weight: 600; }
+.adm-item { margin-bottom: 6px; }
+.adm-item input { min-height: 40px; width: 100%; border-radius: 10px; border: 1px solid var(--line-2); padding: 6px 10px; font-size: 14px; background: #fff; }
+.adm-item .sub { grid-column: 1 / -1; font-size: 12px; color: var(--muted); margin-top: -2px; }
+.adm-item-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.adm-item-actions select { flex: 1; min-width: 180px; min-height: 38px; border-radius: 10px; border: 1px solid var(--line-2); padding: 0 10px; background: #fff; font-size: 14px; }
+.adm-sum { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; font-size: 14px; background: linear-gradient(135deg, var(--accent-soft), #FBF1E1); border: 1px solid var(--gold-light); border-radius: 12px; padding: 12px 14px; }
+.adm-sum dt { color: var(--ink-2); }
+.adm-sum dd { margin: 0; text-align: right; font-weight: 700; }
+.adm-sum .total { font-size: 18px; color: var(--accent); }
+
+/* ---------- Layar lebar ---------- */
+@media (min-width: 640px) {
+  .adm-row { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  .adm-filters { grid-template-columns: 2fr 1fr auto auto; }
+  .adm-day-cell { min-height: 72px; padding: 6px 8px; font-size: 15px; }
+  .adm-cal-head h1 { font-size: 24px; }
+}
+@media (min-width: 900px) {
+  .adm-tabs { order: 0; width: auto; }
+  .adm-tab { flex: none; padding: 0 16px; }
+}
+@media (min-width: 1024px) {
+  .adm-cal-layout { grid-template-columns: minmax(0, 1.4fr) minmax(340px, 1fr); }
+  .adm-day { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
+  .adm-main { padding-top: 28px; }
+}
+@media (max-width: 639px) {
+  .adm-dialog { border-radius: 0; height: 100dvh; max-width: 100%; }
+  .adm-dialog form { max-height: 100dvh; height: 100%; }
+  .adm-user .btn { padding: 0 10px; }
+  .adm-user span { display: none; }
+}
